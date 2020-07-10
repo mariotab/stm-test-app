@@ -1,4 +1,4 @@
-# test
+# STM-test-app
 
 ## Project setup
 ```
