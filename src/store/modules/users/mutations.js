@@ -1,1 +1,1 @@
-export const setUsers = (state, payload) => { state.users = payload }
+export const setUsers = (state, users) => { state.users = users }
