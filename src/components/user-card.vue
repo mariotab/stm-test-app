@@ -15,7 +15,7 @@
       </q-img>
 
       <q-card-actions align="center">
-        <q-btn outline color="primary" flat :to="{ name: 'home' }">Посмотреть</q-btn>
+        <q-btn v-if="isViewButtonShow" outline color="primary" flat :to="{ name: 'user', params: {id: user.id} }">Посмотреть</q-btn>
         <q-btn outline color="primary" @click="editUser" flat>Редактировать</q-btn>
         <q-btn outline color="deep-orange" @click="deleteUser" flat>Удалить</q-btn>
       </q-card-actions>
@@ -30,6 +30,10 @@ export default {
     user: {
       type: Object,
       required: true
+    },
+    isViewButtonShow: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {

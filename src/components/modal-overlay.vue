@@ -6,6 +6,7 @@
           v-if="modal"
           :is="modal.component"
           :user="modal.user"
+          @closeModal="showModal = null"
         />
       </keep-alive>
     </q-card>

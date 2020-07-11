@@ -63,7 +63,7 @@ export default {
   methods: {
     /**
     * @param {string} menuItemTo
-    * return boolean
+    * @return {boolean}
     */
     isMenuItemActive (menuItemTo) {
       return this.$route ? menuItemTo === this.$route.name : false
