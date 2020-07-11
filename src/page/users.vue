@@ -1,40 +1,51 @@
 <template>
-  <div class="users">
+  <q-page class="users page-container">
     <div class="row">
-      <div
+      <user-card
         class="col-4 q-pa-sm"
         v-for="user in users"
         :key="user.id"
-      >
-        <q-card class="my-card">
-          <img :src="user.avatar">
-
-          <q-card-actions align="right">
-            <q-btn flat round color="red" icon="favorite" />
-            <q-btn flat round color="teal" icon="bookmark" />
-            <q-btn flat round color="primary" icon="share" />
-          </q-card-actions>
-        </q-card>
-      </div>
+        :user="user"
+      />
     </div>
-  </div>
+    <pagination
+      :max="usersData.totalPage"
+      @input="paginationChanged"
+    />
+  </q-page>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
+
+import pagination from '../components/pagination'
+import userCard from '../components/user-card'
 export default {
+  components: {
+    pagination,
+    userCard
+  },
   computed: {
     ...mapState({
-      users: state => state.users.users
-    }),
-    ...mapActions(['fetchUsers'])
+      users: state => state.users.users,
+      usersData: state => state.users.usersData
+    })
+  },
+  methods: {
+    ...mapActions(['fetchUsers']),
+    /**
+     * we call this method when page numbering has changed
+     * @param {number} page
+     */
+    paginationChanged (page) {
+      this.fetchUsers({ page })
+    }
   },
   async mounted () {
-    await this.fetchUsers
+    await this.fetchUsers()
   }
 }
 </script>
 
-<style>
-
+<style lang="scss">
 </style>

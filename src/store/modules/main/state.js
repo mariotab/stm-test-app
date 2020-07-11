@@ -1,4 +1,5 @@
-export const state = () => ({
+export default {
   processed: false,
-  error: null
-})
+  error: null,
+  modal: null
+}

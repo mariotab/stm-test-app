@@ -1,3 +1,4 @@
-export const state = () => ({
-  users: []
-})
+export default {
+  users: [],
+  usersData: {}
+}

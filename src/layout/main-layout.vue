@@ -13,8 +13,9 @@
       <q-drawer
         v-model="drawer"
         show-if-above
-        :width="200"
+        :width="300"
         :breakpoint="500"
+        overlay
         bordered
         content-class="bg-grey-3"
       >
@@ -32,9 +33,7 @@
         </q-scroll-area>
       </q-drawer>
       <q-page-container>
-        <q-page class="q-pa-md">
-          <router-view/>
-        </q-page>
+        <router-view/>
       </q-page-container>
     </q-layout>
   </div>
@@ -80,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-layout {
-  min-height: 100vh;
-}
+  .main-layout {
+    min-height: 100vh;
+  }
 </style>
