@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
   props: {
     max: {
@@ -25,12 +26,21 @@ export default {
       default: 5
     }
   },
-  data () {
-    return {
-      current: 1
+  computed: {
+    ...mapState({
+      usersData: state => state.users.usersData
+    }),
+    current: {
+      get () {
+        return this.usersData.page || 1
+      },
+      set (value) {
+        this.setUsersData({ ...this.usersData, page: value })
+      }
     }
   },
   methods: {
+    ...mapMutations(['setUsersData']),
     input (val) {
       this.$emit('input', val)
     }

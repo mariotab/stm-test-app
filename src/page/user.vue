@@ -1,6 +1,7 @@
 <template>
   <q-page class="user page-container">
     <userCard
+      class="user-card"
       :user="user"
       :isViewButtonShow="false"
     />
@@ -37,5 +38,8 @@ export default {
 </script>
 
 <style lang="scss">
-
+  .user-card {
+    max-width: 600px;
+    margin: 30px auto;
+  }
 </style>

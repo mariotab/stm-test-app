@@ -38,10 +38,8 @@ export const editUser = async ({ state, commit }, payload) => {
   try {
     commit('setProcessed', true)
     const res = await axios.put(`/users/${payload.id}`, {
-      data: {
-        name: payload.firstName + ' ' + payload.lastName,
-        job: payload.job
-      }
+      name: payload.firstName + ' ' + payload.lastName,
+      job: payload.job
     })
     console.log(res, 'res-------------editUser')
     commit('setUsers', state.users.map(user => {
@@ -49,6 +47,43 @@ export const editUser = async ({ state, commit }, payload) => {
       else return { ...user, first_name: payload.firstName, last_name: payload.lastName }
     }))
     if (+state.user.id === +payload.id) commit('setUser', { ...state.user, first_name: payload.firstName, last_name: payload.lastName })
+    commit('setProcessed', false)
+  } catch (e) {
+    commit('setError', e)
+    commit('setProcessed', false)
+    console.log(e)
+  }
+}
+
+export const deleteUser = async ({ state, commit }, payload) => {
+  try {
+    commit('setProcessed', true)
+    const res = await axios.delete(`/users/${payload.id}`)
+    console.log(res, 'res-------------editUser')
+    commit('setUsers', state.users.filter(user => user.id !== payload.id))
+    commit('setProcessed', false)
+  } catch (e) {
+    commit('setError', e)
+    commit('setProcessed', false)
+    console.log(e)
+  }
+}
+
+export const createNewUser = async ({ state, commit }, payload) => {
+  try {
+    commit('setProcessed', true)
+    const res = await axios.post('/users}', {
+      name: payload.firstName + ' ' + payload.lastName,
+      job: payload.job
+    })
+    console.log(res, 'res-------------createNewUser')
+    commit('setUsers', [...state.users, {
+      avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg',
+      email: 'test.lawson@reqres.in',
+      first_name: payload.firstName,
+      id: res.data.id,
+      last_name: payload.lastName
+    }])
     commit('setProcessed', false)
   } catch (e) {
     commit('setError', e)

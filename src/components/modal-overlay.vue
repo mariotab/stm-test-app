@@ -1,11 +1,12 @@
 <template>
   <q-dialog v-model="showModal">
     <q-card style="min-width: 350px">
-      <keep-alive> <!-- we don't need use keep-alive here, but for demonstration we use it )-->
+      <keep-alive> <!-- we don't need use keep-alive here, but for demonstration we use it -->
         <component
           v-if="modal"
           :is="modal.component"
           :user="modal.user"
+          :createUser="modal.createUser"
           @closeModal="showModal = null"
         />
       </keep-alive>
@@ -17,7 +18,8 @@
 import { mapState, mapMutations } from 'vuex'
 export default {
   components: {
-    editUser: () => import('./edit-user')
+    editUser: () => import('./edit-user'),
+    deleteUser: () => import('./delete-user')
   },
   computed: {
     ...mapState({

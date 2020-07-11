@@ -31,7 +31,16 @@
     <q-card-actions align="right" class="text-primary">
       <q-btn flat label="Cancel" v-close-popup />
       <q-btn
-        flat label="Edit user"
+        v-if="createUser"
+        flat
+        label="Create user"
+        :disable="!disableBtn"
+        @click="userCreate"
+      />
+      <q-btn
+        v-else
+        flat
+        label="Edit user"
         :disable="!disableBtn"
         @click="userEdit"
       />
@@ -46,6 +55,10 @@ export default {
     user: {
       type: Object,
       default: () => ({})
+    },
+    createUser: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -66,7 +79,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['editUser']),
+    ...mapActions([
+      'editUser',
+      'createNewUser'
+    ]),
     /**
     * @param {string} str
     * @return {object}
@@ -81,6 +97,14 @@ export default {
     async userEdit (id) {
       await this.editUser({
         id: this.user.id,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        job: this.job
+      })
+      this.$emit('closeModal')
+    },
+    async userCreate () {
+      await this.createNewUser({
         firstName: this.firstName,
         lastName: this.lastName,
         job: this.job
